@@ -1,11 +1,19 @@
 package com.camaratek.catalogue_pro_mvc.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.camaratek.catalogue_pro_mvc.entities.Produit;
 import com.camaratek.catalogue_pro_mvc.repositories.ProduitRepository;
+
 
 @Controller
 public class ProduitController {
@@ -13,8 +21,18 @@ public class ProduitController {
 	private ProduitRepository produitRepository;
 	
 	@RequestMapping(value = "index")
-	public String index(Model model) {
-		model.addAttribute("listProduits", this.produitRepository.findAll());
+	public String index(
+			Model model,
+			@RequestParam( name = "page", defaultValue = "0" ) int p,
+			@RequestParam( name = "size", defaultValue = "4" ) int s
+			) {
+		
+		Page<Produit> pageProduits = produitRepository.findAll(PageRequest.of(p, s));
+		model.addAttribute("listProduits", pageProduits.getContent());
+		int[] numberOfPage = new int[pageProduits.getTotalPages()];
+		model.addAttribute("pages", numberOfPage);
+		model.addAttribute("s", s);
+		model.addAttribute("pagecourante", p);
 		return "produits";
 	}
 	
