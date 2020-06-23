@@ -17,6 +17,7 @@ public class CatalogueProMvcApplication {
 		produitRepository.save(new Produit(null, "Ordinateur HP 325", 970, 50));
 		produitRepository.save(new Produit(null, "Imprimante Epson", 370, 100));
 		produitRepository.save(new Produit(null, "Clavier", 70, 290));*/
+		
 		produitRepository.findAll().forEach(p ->System.out.println(p.getDesignation()));
 	} 
 

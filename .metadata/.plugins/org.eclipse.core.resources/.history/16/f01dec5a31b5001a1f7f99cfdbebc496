@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Produits</title>
+	</head>
+	<body>
+		<h3>Test Produit</h3>
+	</body>
+</html>
